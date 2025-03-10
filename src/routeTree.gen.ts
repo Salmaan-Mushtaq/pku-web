@@ -11,15 +11,39 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as FoodImport } from './routes/food'
 import { Route as FarzanaImport } from './routes/farzana'
+import { Route as CategoryImport } from './routes/category'
+import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as SubcategoryIdImport } from './routes/subcategory.$id'
+import { Route as FooddetailIdImport } from './routes/fooddetail.$id'
 import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
+import { Route as SubcategorySubcategoryIdFoodFoodIdImport } from './routes/subcategory.$subcategoryId.food.$foodId'
 
 // Create/Update Routes
+
+const FoodRoute = FoodImport.update({
+  id: '/food',
+  path: '/food',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const FarzanaRoute = FarzanaImport.update({
   id: '/farzana',
   path: '/farzana',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CategoryRoute = CategoryImport.update({
+  id: '/category',
+  path: '/category',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AboutRoute = AboutImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -29,11 +53,30 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const SubcategoryIdRoute = SubcategoryIdImport.update({
+  id: '/subcategory/$id',
+  path: '/subcategory/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FooddetailIdRoute = FooddetailIdImport.update({
+  id: '/fooddetail/$id',
+  path: '/fooddetail/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const DemoTanstackQueryRoute = DemoTanstackQueryImport.update({
   id: '/demo/tanstack-query',
   path: '/demo/tanstack-query',
   getParentRoute: () => rootRoute,
 } as any)
+
+const SubcategorySubcategoryIdFoodFoodIdRoute =
+  SubcategorySubcategoryIdFoodFoodIdImport.update({
+    id: '/subcategory/$subcategoryId/food/$foodId',
+    path: '/subcategory/$subcategoryId/food/$foodId',
+    getParentRoute: () => rootRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -46,11 +89,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutImport
+      parentRoute: typeof rootRoute
+    }
+    '/category': {
+      id: '/category'
+      path: '/category'
+      fullPath: '/category'
+      preLoaderRoute: typeof CategoryImport
+      parentRoute: typeof rootRoute
+    }
     '/farzana': {
       id: '/farzana'
       path: '/farzana'
       fullPath: '/farzana'
       preLoaderRoute: typeof FarzanaImport
+      parentRoute: typeof rootRoute
+    }
+    '/food': {
+      id: '/food'
+      path: '/food'
+      fullPath: '/food'
+      preLoaderRoute: typeof FoodImport
       parentRoute: typeof rootRoute
     }
     '/demo/tanstack-query': {
@@ -60,6 +124,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTanstackQueryImport
       parentRoute: typeof rootRoute
     }
+    '/fooddetail/$id': {
+      id: '/fooddetail/$id'
+      path: '/fooddetail/$id'
+      fullPath: '/fooddetail/$id'
+      preLoaderRoute: typeof FooddetailIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/subcategory/$id': {
+      id: '/subcategory/$id'
+      path: '/subcategory/$id'
+      fullPath: '/subcategory/$id'
+      preLoaderRoute: typeof SubcategoryIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/subcategory/$subcategoryId/food/$foodId': {
+      id: '/subcategory/$subcategoryId/food/$foodId'
+      path: '/subcategory/$subcategoryId/food/$foodId'
+      fullPath: '/subcategory/$subcategoryId/food/$foodId'
+      preLoaderRoute: typeof SubcategorySubcategoryIdFoodFoodIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -67,42 +152,101 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/category': typeof CategoryRoute
   '/farzana': typeof FarzanaRoute
+  '/food': typeof FoodRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/fooddetail/$id': typeof FooddetailIdRoute
+  '/subcategory/$id': typeof SubcategoryIdRoute
+  '/subcategory/$subcategoryId/food/$foodId': typeof SubcategorySubcategoryIdFoodFoodIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/category': typeof CategoryRoute
   '/farzana': typeof FarzanaRoute
+  '/food': typeof FoodRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/fooddetail/$id': typeof FooddetailIdRoute
+  '/subcategory/$id': typeof SubcategoryIdRoute
+  '/subcategory/$subcategoryId/food/$foodId': typeof SubcategorySubcategoryIdFoodFoodIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/category': typeof CategoryRoute
   '/farzana': typeof FarzanaRoute
+  '/food': typeof FoodRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/fooddetail/$id': typeof FooddetailIdRoute
+  '/subcategory/$id': typeof SubcategoryIdRoute
+  '/subcategory/$subcategoryId/food/$foodId': typeof SubcategorySubcategoryIdFoodFoodIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/farzana' | '/demo/tanstack-query'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/category'
+    | '/farzana'
+    | '/food'
+    | '/demo/tanstack-query'
+    | '/fooddetail/$id'
+    | '/subcategory/$id'
+    | '/subcategory/$subcategoryId/food/$foodId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/farzana' | '/demo/tanstack-query'
-  id: '__root__' | '/' | '/farzana' | '/demo/tanstack-query'
+  to:
+    | '/'
+    | '/about'
+    | '/category'
+    | '/farzana'
+    | '/food'
+    | '/demo/tanstack-query'
+    | '/fooddetail/$id'
+    | '/subcategory/$id'
+    | '/subcategory/$subcategoryId/food/$foodId'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/category'
+    | '/farzana'
+    | '/food'
+    | '/demo/tanstack-query'
+    | '/fooddetail/$id'
+    | '/subcategory/$id'
+    | '/subcategory/$subcategoryId/food/$foodId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  CategoryRoute: typeof CategoryRoute
   FarzanaRoute: typeof FarzanaRoute
+  FoodRoute: typeof FoodRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  FooddetailIdRoute: typeof FooddetailIdRoute
+  SubcategoryIdRoute: typeof SubcategoryIdRoute
+  SubcategorySubcategoryIdFoodFoodIdRoute: typeof SubcategorySubcategoryIdFoodFoodIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  CategoryRoute: CategoryRoute,
   FarzanaRoute: FarzanaRoute,
+  FoodRoute: FoodRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  FooddetailIdRoute: FooddetailIdRoute,
+  SubcategoryIdRoute: SubcategoryIdRoute,
+  SubcategorySubcategoryIdFoodFoodIdRoute:
+    SubcategorySubcategoryIdFoodFoodIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -116,18 +260,42 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/about",
+        "/category",
         "/farzana",
-        "/demo/tanstack-query"
+        "/food",
+        "/demo/tanstack-query",
+        "/fooddetail/$id",
+        "/subcategory/$id",
+        "/subcategory/$subcategoryId/food/$foodId"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
+    "/about": {
+      "filePath": "about.tsx"
+    },
+    "/category": {
+      "filePath": "category.tsx"
+    },
     "/farzana": {
       "filePath": "farzana.tsx"
     },
+    "/food": {
+      "filePath": "food.tsx"
+    },
     "/demo/tanstack-query": {
       "filePath": "demo.tanstack-query.tsx"
+    },
+    "/fooddetail/$id": {
+      "filePath": "fooddetail.$id.tsx"
+    },
+    "/subcategory/$id": {
+      "filePath": "subcategory.$id.tsx"
+    },
+    "/subcategory/$subcategoryId/food/$foodId": {
+      "filePath": "subcategory.$subcategoryId.food.$foodId.tsx"
     }
   }
 }
